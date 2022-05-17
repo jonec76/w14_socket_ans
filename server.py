@@ -55,13 +55,21 @@ class Server:
             msg = c.recv(1024)
             if msg.decode() != '':
                 print('New message: '+str(msg.decode()))
-                msg = bcolors.OKGREEN + str(msg.decode()) + bcolors.ENDC
-                for connection in self.clients:
-                    if connection != c:
-                        connection.send(msg.encode())
+                if (str(msg.decode()) == "ls"):
+                    name = ""
+                    for client in self.clients:
+                        name += str(self.username_lookup[client])+", "
+                    txt = str(self.username_lookup[c])+" : " + name[:-2]
+                    c.send(txt.encode())
+                else:
+                    msg = bcolors.OKGREEN + str(self.username_lookup[c])+" : " + str(msg.decode()) + bcolors.ENDC
+                    for connection in self.clients:
+                        if connection != c:
+                            connection.send(msg.encode())
             else:
                 # c.shutdown(socket.SHUT_RDWR)
-                self.clients.remove(c)
+                if c:
+                    self.clients.remove(c)
                 print(str(self.username_lookup[c])+' left the room.')
                 self.broadcast(str(self.username_lookup[c])+' has left the room.')
                 break

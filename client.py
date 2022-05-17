@@ -41,7 +41,8 @@ class Client:
     def input_handler(self):
         while 1:
             try:
-                self.s.send((self.username+' : '+input()).encode())
+                # self.s.send((self.username+' : '+input()).encode())
+                self.s.send((input()).encode())
             except KeyboardInterrupt:
                 break
             except:
