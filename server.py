@@ -9,7 +9,7 @@ class Server:
         self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
        
-        host = "127.0.0.1"
+        host = "0.0.0.0"
         port = 8765
 
         self.clients = []
