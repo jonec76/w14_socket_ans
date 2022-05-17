@@ -59,7 +59,7 @@ class Server:
                     name = ""
                     for client in self.clients:
                         name += str(self.username_lookup[client])+", "
-                    txt = str(self.username_lookup[c])+" : " + name[:-2]
+                    txt = bcolors.OKGREEN + "Room Members: "+ name[:-2]+ bcolors.ENDC
                     c.send(txt.encode())
                 else:
                     msg = bcolors.OKGREEN + str(self.username_lookup[c])+" : " + str(msg.decode()) + bcolors.ENDC
